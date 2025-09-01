@@ -1,0 +1,56 @@
+<div class="websocket-demo">
+  <header>
+    <h1>{{ title() }}</h1>
+    <div class="connection-status" [class.connected]="isConnected" [class.disconnected]="!isConnected">
+      {{ isConnected ? '接続中' : '切断中' }}
+    </div>
+  </header>
+
+  <main>
+    <section class="message-input">
+      <div class="input-group">
+        <input 
+          type="text" 
+          [(ngModel)]="newMessage" 
+          (keyup.enter)="sendMessage()"
+          placeholder="メッセージを入力してください..."
+          [disabled]="!isConnected"
+        />
+        <button 
+          (click)="sendMessage()" 
+          [disabled]="!isConnected || !newMessage.trim()"
+          class="send-btn"
+        >
+          送信
+        </button>
+        <button 
+          (click)="clearMessages()" 
+          class="clear-btn"
+        >
+          クリア
+        </button>
+      </div>
+    </section>
+
+    <section class="messages-container">
+      <h2>リアルタイムメッセージ</h2>
+      <div class="messages-list">
+        @if (messages.length === 0) {
+          <div class="no-messages">
+            メッセージがありません
+          </div>
+        } @else {
+          @for (message of messages; track message.timestamp) {
+            <div class="message-item" [attr.data-type]="message.type">
+              <div class="message-header">
+                <span class="message-type">{{ message.type }}</span>
+                <span class="message-time">{{ message.timestamp | date:'HH:mm:ss' }}</span>
+              </div>
+              <div class="message-content">{{ message.message }}</div>
+            </div>
+          }
+        }
+      </div>
+    </section>
+  </main>
+</div>
