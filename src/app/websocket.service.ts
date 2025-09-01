@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 export interface WebSocketMessage {
   type: string;
@@ -24,7 +25,7 @@ export class WebSocketService {
 
   private connect(): void {
     try {
-      this.socket = new WebSocket('ws://localhost:3000');
+      this.socket = new WebSocket(environment.websocketUrl);
 
       this.socket.onopen = () => {
         console.log('WebSocket接続が確立されました');
