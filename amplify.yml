@@ -9,6 +9,7 @@ frontend:
     build:
       commands:
         - export SERVER_URL=$SERVER_URL
+        - echo "window.SERVER_URL='${SERVER_URL}';" > public/env.js
         - npm run build:production
   artifacts:
     baseDirectory: dist/angular-websocket-app/browser
