@@ -11,7 +11,7 @@ frontend:
         - export SERVER_URL=$SERVER_URL
         - npm run build:production
   artifacts:
-    baseDirectory: dist/angular-websocket-app
+    baseDirectory: dist/angular-websocket-app/browser
     files:
       - '**/*'
   cache:
